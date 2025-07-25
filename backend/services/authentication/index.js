@@ -1,6 +1,8 @@
 require('dotenv-flow').config();
 const express = require('express');
 const cookieParser = require('cookie-parser');
+
+
 const connectDB = require('../../shared/config/db');
 const { errorHandler } = require('../../shared/middleware/errorHandler');
 const { superadminauth } = require('./routes/superadminauth.route');
@@ -14,7 +16,7 @@ app.use(cookieParser());
 
 connectDB(process.env.AUTHENTICATION_PORT_NAME , process.env.SUPER_ADMIN_MONGO_URI);
 
-app.use('/', superadminauth);
+app.use('/superadmin', superadminauth);
 
 app.get('/health', (req, res) => {
   res.send('Authentication service running');

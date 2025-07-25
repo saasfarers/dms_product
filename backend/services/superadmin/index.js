@@ -1,5 +1,8 @@
 require('dotenv-flow').config();
 const express = require('express');
+const cookieParser = require('cookie-parser');
+
+
 const connectDB = require('../../shared/config/db');
 const { errorHandler } = require('../../shared/middleware/errorHandler');
 
@@ -7,9 +10,12 @@ const { errorHandler } = require('../../shared/middleware/errorHandler');
 const app = express();
 const PORT = process.env.SUPER_ADMIN_PORT || 5001;
 app.use(express.json());
+app.use(cookieParser());
 
 
 connectDB(process.env.SUPER_ADMIN_PORT_NAME , process.env.SUPER_ADMIN_MONGO_URI);
+
+
 
 
 app.get('/health', (req, res) => {

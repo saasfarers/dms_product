@@ -5,18 +5,18 @@ const { errorHandler } = require('../../shared/middleware/errorHandler');
 
 
 const app = express();
-const PORT = process.env.SUPER_ADMIN_PORT || 5000;
+const PORT = process.env.SUPER_ADMIN_PORT || 5001;
 app.use(express.json());
 
 
-connectDB(process.env.SUPER_ADMIN_MONGO_URI);
+connectDB(process.env.SUPER_ADMIN_PORT_NAME , process.env.SUPER_ADMIN_MONGO_URI);
 
 
 app.get('/health', (req, res) => {
   res.send('Superadmin service running');
 });
-app.get('/error-test', (req, res, next) => {
-  const err = new Error('Forced test error');
+app.get('/superadmin-error-test', (req, res, next) => {
+  const err = new Error('superadmin-error-test');
   err.status = 400;
   next(err);
 });

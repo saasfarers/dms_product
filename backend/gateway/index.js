@@ -7,28 +7,28 @@ const { scheduleLogClear } = require('../shared/utils/logCleaner');
 
 const app = express();
 const PORT = process.env.GATEWAY_PORT || 3000;
-const SUPER_ADMIN_PORT = process.env.SUPER_ADMIN_PORT || 5000;
+const AUTHENTICATION_PORT = process.env.AUTHENTICATION_PORT || 5000;
+const SUPER_ADMIN_PORT = process.env.SUPER_ADMIN_PORT || 5001;
 app.use(express.json());
 
 
+app.use('/authenticate', createProxyMiddleware({
+  target: `${process.env.BASE_URL}:${AUTHENTICATION_PORT}`,
+  changeOrigin: true,
+}));
 app.use('/superadmin', createProxyMiddleware({
   target: `${process.env.BASE_URL}:${SUPER_ADMIN_PORT}`,
   changeOrigin: true,
 }));
 
 
-// app.use('/api/users', createProxyMiddleware({
-//   target: 'http://localhost:5001', // user-service
-//   changeOrigin: true,
-// }));
-
 
 
 app.get('/health', (req, res) => {
   res.send('API Gateway running');
 });
-app.get('/error-test', (req, res, next) => {
-  const err = new Error('Forced test error');
+app.get('/gateway-error-test', (req, res, next) => {
+  const err = new Error('gateway-error-test');
   err.status = 400;
   next(err);
 });

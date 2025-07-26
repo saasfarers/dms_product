@@ -6,7 +6,7 @@ const { scheduleLogClear } = require('../shared/utils/logCleaner');
 
 
 const app = express();
-const PORT = process.env.GATEWAY_PORT || 3000;
+const PORT = process.env.GATEWAY_PORT || 4000;
 const AUTHENTICATION_PORT = process.env.AUTHENTICATION_PORT || 5000;
 const SUPER_ADMIN_PORT = process.env.SUPER_ADMIN_PORT || 5001;
 

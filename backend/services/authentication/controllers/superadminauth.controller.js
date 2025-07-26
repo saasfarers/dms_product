@@ -58,6 +58,18 @@ const loginUser = async (req, res, next) => {
     }
 };
 
+const getloggeduser = async (req, res, next) => {
+    try {
+        const user = req.loggedUser;
+        if (!user) {
+            return res.status(401).json({ message: 'Invalid email or password' });
+        }
+        res.status(200).json({ message: 'Get User Successfully', user: user });
+    } catch (error) {
+        next(error);
+    }
+};
+
 const logoutUser = async (req, res, next) => {
     try {
         res.clearCookie('accessToken', {
@@ -79,5 +91,6 @@ const logoutUser = async (req, res, next) => {
 module.exports = {
     registerUser,
     loginUser,
+    getloggeduser,
     logoutUser,
 };

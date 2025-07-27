@@ -2,11 +2,10 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import AppProvider from './contextState/AppProvider';
 import routeConfig from './routes.json';
-import Layout from './component/layout/Layout'
 
 
 const componentsMap = {
-  Layout
+  
 };
 
 

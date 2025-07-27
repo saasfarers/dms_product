@@ -42,19 +42,19 @@ export default ${componentName};
 fs.writeFileSync(componentFilePath, componentContent, 'utf8');
 
 // ------------------------------------------ Create ComponentName.data.js ------------------------------------------
-const dataFilePath = path.join(baseDir, `${componentName}.data.js`);
-const dataContent = `
-const ${componentName}Data = [
-    { title: '${componentName}', description: '${componentName} description here' },
-    { title: '${componentName}', description: '${componentName} description here' }
-];
+// const dataFilePath = path.join(baseDir, `${componentName}.data.js`);
+// const dataContent = `
+// const ${componentName}Data = [
+//     { title: '${componentName}', description: '${componentName} description here' },
+//     { title: '${componentName}', description: '${componentName} description here' }
+// ];
 
-module.export = {
-    ${componentName}Data
-}
-`.trim();
+// module.export = {
+//     ${componentName}Data
+// }
+// `.trim();
 
-fs.writeFileSync(dataFilePath, dataContent, 'utf8');
+// fs.writeFileSync(dataFilePath, dataContent, 'utf8');
 
 // ------------------------------------------ Create ComponentName.style.js ------------------------------------------
 const styleFilePath = path.join(baseDir, `${componentName}.style.js`);

@@ -31,7 +31,16 @@ const superadminSchema = new mongoose.Schema(
         },
         lastLogin: {
             type: Date,
-        }
+        },
+        language: {
+            type: String,
+            enum: ['en', 'ta'],
+            default: 'en'
+        },
+        deleted: {
+            type: Boolean,
+            default: false,
+        },
     },
     { timestamps: true }
 );

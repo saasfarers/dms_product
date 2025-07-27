@@ -21,7 +21,7 @@ fs.mkdirSync(baseDir, { recursive: true });
 const componentFilePath = path.join(baseDir, `${componentName}.js`);
 const componentContent = `
 import React from 'react';
-import { ${componentName}Data } from './${componentName}.data';
+// import { ${componentName}Data } from './${componentName}.data';
 import { sample${componentName}function } from './${componentName}.helper';
 import { fetch${componentName}Data } from './${componentName}.api';
 import useStyles from './${componentName}.style';

@@ -1,12 +1,17 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
+const counterSchema = new mongoose.Schema({
+  _id: { type: String, required: true },
+  seq: { type: Number, default: 0 }
+});
+const Counter = mongoose.model('Counter', counterSchema);
+
 const superadminSchema = new mongoose.Schema(
   {
     userId: {
       type: String,
       unique: true,
-      required: true,
     },
     name: {
       type: String,
@@ -52,23 +57,18 @@ const superadminSchema = new mongoose.Schema(
 
 
 superadminSchema.pre('save', async function (next) {
-  const Superadmin = this.constructor;
+  if (this.isNew && !this.userId) {
+    try {
+      const counter = await Counter.findByIdAndUpdate(
+        { _id: 'superadminId' }, 
+        { $inc: { seq: 1 } },    
+        { new: true, upsert: true } 
+      );
 
-  if (this.isNew) {
-    const lastUser = await Superadmin
-      .findOne({ userId: { $regex: /^SA-\d+$/ } })
-      .sort({ createdAt: -1 })
-      .select('userId');
-
-    let nextId = 'SA-0001';
-
-    if (lastUser && lastUser.userId) {
-      const lastNumber = parseInt(lastUser.userId.split('-')[1], 10);
-      const newNumber = lastNumber + 1;
-      nextId = `SA-${newNumber.toString().padStart(4, '0')}`;
+      this.userId = `SA-${counter.seq.toString().padStart(4, '0')}`;
+    } catch (err) {
+      return next(err);
     }
-
-    this.userId = nextId;
   }
 
   if (this.isModified('password')) {
@@ -83,8 +83,5 @@ superadminSchema.pre('save', async function (next) {
 superadminSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
-
-
-superadminSchema.index({ userId: 1 }, { unique: true });
 
 module.exports = mongoose.model('Superadmin', superadminSchema);

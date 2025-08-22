@@ -1,6 +1,6 @@
 const User = require('../models/superadmin.model');
 
-const userToBeRegister = async (name="", email="", password="") => {
+const superAdminToBeRegister = async (name="", email="", password="") => {
     try {
         const userExists = await User.findOne({ email });
         if (userExists) {
@@ -12,7 +12,7 @@ const userToBeRegister = async (name="", email="", password="") => {
         return {status: false, message: error};
     }
 }
-const userToBeLogin = async (email="", password="") => {
+const superAdminToBeLogin = async (email="", password="") => {
     try {
         const user = await User.findOne({
             email,
@@ -28,7 +28,7 @@ const userToBeLogin = async (email="", password="") => {
         return {status: false, message: error};
     }
 }
-const userToBeLoggedin = async (loggedUser="") => {
+const superAdminToBeLoggedin = async (loggedUser="") => {
     try {
         if (!loggedUser) {
             return {status: false, message: 'Invalid email or password'};;
@@ -41,7 +41,7 @@ const userToBeLoggedin = async (loggedUser="") => {
 
 
 module.exports = {
-    userToBeRegister,
-    userToBeLogin,
-    userToBeLoggedin,
+    superAdminToBeRegister,
+    superAdminToBeLogin,
+    superAdminToBeLoggedin,
 };

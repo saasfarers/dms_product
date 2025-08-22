@@ -1,4 +1,4 @@
-const { userToBeRegister, userToBeLogin, userToBeLoggedin } = require('../helpers/superadminauth.helper');
+const { superAdminToBeRegister, superAdminToBeLogin, superAdminToBeLoggedin } = require('../helpers/superadminauth.helper');
 const { generateAccessToken, generateRefreshToken } = require('../../../shared/utils/generatedToken');
 const jwt = require('jsonwebtoken');
 
@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const register = async (req, res, next) => {
     try {
         const { name, email, password } = req.body;
-        const user = await userToBeRegister(name, email, password);
+        const user = await superAdminToBeRegister(name, email, password);
         if(user.status == false){
             throw new Error(user.message);
         }
@@ -38,7 +38,7 @@ const register = async (req, res, next) => {
 const login = async (req, res, next) => {
     try {
         const { email, password } = req.body;
-        const user = await userToBeLogin(email, password);
+        const user = await superAdminToBeLogin(email, password);
         if(user.status == false){
             throw new Error(user.message);
         }
@@ -70,7 +70,7 @@ const login = async (req, res, next) => {
 const loggeduser = async (req, res, next) => {
     try {
         const loggedUser = req.loggedUser;
-        const user = await userToBeLoggedin(loggedUser);
+        const user = await superAdminToBeLoggedin(loggedUser);
         if(user.status == false){
             throw new Error(user.message);
         }

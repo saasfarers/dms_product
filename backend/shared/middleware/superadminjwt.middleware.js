@@ -8,8 +8,11 @@ const protect = async (req, res, next) => {
         if(accessToken){
 
             const decoded = jwt.verify(accessToken, process.env.JWT_ACCESS_SECRET);
-            req.loggedUser = await User.findById(decoded.id).select('-password');
-            req.database = decoded.database;
+            const user = await User.findById(decoded.id);
+            if (!user) {
+                return res.status(403).json({ message: 'Invalid refresh token, please log in again' });
+            }
+            req.loggedUser = decoded.id;
             return next();
 
         }else{
@@ -33,8 +36,7 @@ const protect = async (req, res, next) => {
                 sameSite: 'strict',
                 maxAge: process.env.JWT_ACCESS_SECRET_MAX_AGE,
             });
-            req.loggedUser = user;
-            req.database = decoded.database;
+            req.loggedUser = decoded.id;
             return next();
         }
        

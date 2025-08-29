@@ -30,10 +30,15 @@ const superAdminToBeLogin = async (email="", password="") => {
 }
 const superAdminToBeLoggedin = async (loggedUser="") => {
     try {
-        if (!loggedUser) {
+        const user = await User.findOne({
+            _id: loggedUser,
+            deleted: false,
+            isActive: true,
+        });
+        if (!user) {
             return {status: false, message: 'Invalid email or password'};;
         }
-        return {status: true, message: loggedUser};
+        return {status: true, message: user};
     } catch (error) {
         return {status: false, message: error};
     }

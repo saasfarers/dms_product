@@ -1,7 +1,7 @@
 const express = require('express');
 const superadminauth = express.Router();
 const { register, login, loggeduser, logout } = require('../controllers/superadminauth.controller')
-const { protect } = require('../../../shared/middleware/jwt.middleware')
+const { protect } = require('../../../shared/middleware/superadminjwt.middleware')
 
 
 superadminauth.post('/register', register);

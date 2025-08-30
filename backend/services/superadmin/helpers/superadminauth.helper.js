@@ -1,4 +1,4 @@
-const User = require('../models/superadmin.model');
+const User = require('../../../models/superadminmodels/superadmin.model');
 
 const superAdminToBeRegister = async (name="", email="", password="") => {
     try {
@@ -14,11 +14,13 @@ const superAdminToBeRegister = async (name="", email="", password="") => {
 }
 const superAdminToBeLogin = async (email="", password="") => {
     try {
+        
         const user = await User.findOne({
             email,
             deleted: false,
             isActive: true,
         });
+        console.log(user)
         if (!user || !(await user.matchPassword(password))) {
             return {status: false, message: 'Invalid email or password'};
         }

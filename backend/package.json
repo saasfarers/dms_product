@@ -4,17 +4,14 @@
   "private": true,
   "scripts": {
     "start:gateway:dev": "cross-env NODE_ENV=development NODE_OPTIONS=--no-deprecation nodemon gateway/index.js",
-    "start:authentication:dev": "cross-env NODE_ENV=development NODE_OPTIONS=--no-deprecation nodemon services/authentication/index.js",
     "start:superadmin:dev": "cross-env NODE_ENV=development NODE_OPTIONS=--no-deprecation nodemon services/superadmin/index.js",
-    "start:all:dev": "concurrently \"npm run start:gateway:dev\" \"npm run start:authentication:dev\" \"npm run start:superadmin:dev\" ",
+    "start:all:dev": "concurrently \"npm run start:gateway:dev\" \"npm run start:superadmin:dev\" ",
     "start:gateway:staging": "cross-env NODE_ENV=staging NODE_OPTIONS=--no-deprecation nodemon gateway/index.js",
-    "start:authentication:staging": "cross-env NODE_ENV=staging NODE_OPTIONS=--no-deprecation nodemon services/authentication/index.js",
     "start:superadmin:staging": "cross-env NODE_ENV=staging NODE_OPTIONS=--no-deprecation nodemon services/superadmin/index.js",
-    "start:all:staging": "concurrently \"npm run start:gateway:staging\" \"npm run start:authentication:staging\" \"npm run start:superadmin:staging\" ",
+    "start:all:staging": "concurrently \"npm run start:gateway:staging\" \"npm run start:superadmin:staging\" ",
     "start:gateway:prod": "cross-env NODE_ENV=production NODE_OPTIONS=--no-deprecation nodemon gateway/index.js",
-    "start:authentication:prod": "cross-env NODE_ENV=production NODE_OPTIONS=--no-deprecation nodemon services/authentication/index.js",
     "start:superadmin:prod": "cross-env NODE_ENV=production NODE_OPTIONS=--no-deprecation nodemon services/superadmin/index.js",
-    "start:all:prod": "concurrently \"npm run start:gateway:prod\" \"npm run start:authentication:prod\" \"npm run start:superadmin:prod\" "
+    "start:all:prod": "concurrently \"npm run start:gateway:prod\" \"npm run start:superadmin:prod\" "
   },
   "keywords": [],
   "author": "",

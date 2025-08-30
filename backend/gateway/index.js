@@ -1,20 +1,15 @@
 require('dotenv-flow').config();
 const express = require('express');
 const { createProxyMiddleware } = require('http-proxy-middleware');
-const { errorHandler } = require('../shared/middleware/errorHandler');
+const { errorHandler } = require('../shared/utils/errorHandler');
 const { scheduleLogClear } = require('../shared/utils/logCleaner');
 
 
 const app = express();
 const PORT = process.env.GATEWAY_PORT || 4000;
-const AUTHENTICATION_PORT = process.env.AUTHENTICATION_PORT || 5000;
-const SUPER_ADMIN_PORT = process.env.SUPER_ADMIN_PORT || 5001;
+const SUPER_ADMIN_PORT = process.env.SUPER_ADMIN_PORT || 5000;
 
 
-app.use('/authentication', createProxyMiddleware({
-  target: `${process.env.BASE_URL}:${AUTHENTICATION_PORT}`,
-  changeOrigin: true,
-}));
 app.use('/superadmin', createProxyMiddleware({
   target: `${process.env.BASE_URL}:${SUPER_ADMIN_PORT}`,
   changeOrigin: true,

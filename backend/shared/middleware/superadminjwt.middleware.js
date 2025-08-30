@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const User = require('../../services/authentication/models/superadmin.model');
+const User = require('../../models/superadminmodels/superadmin.model');
 const { generateAccessToken } = require('../utils/generatedToken');
 
 const protect = async (req, res, next) => {

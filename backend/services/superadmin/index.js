@@ -4,7 +4,9 @@ const cookieParser = require('cookie-parser');
 
 
 const connectDB = require('../../shared/config/db');
-const { errorHandler } = require('../../shared/middleware/errorHandler');
+const { errorHandler } = require('../../shared/utils/errorHandler');
+const { organization } = require('./routes/organization.route');
+const { superadminauth } = require('./routes/superadminauth.route');
 
 
 const app = express();
@@ -15,6 +17,8 @@ app.use(cookieParser());
 
 connectDB(process.env.SUPER_ADMIN_PORT_NAME , process.env.SUPER_ADMIN_MONGO_URI);
 
+app.use('/superadminauth', superadminauth);
+app.use('/organization', organization);
 
 
 

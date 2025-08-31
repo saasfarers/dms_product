@@ -10,7 +10,7 @@ const { superadminauth } = require('./routes/superadminauth.route');
 
 
 const app = express();
-const PORT = process.env.SUPER_ADMIN_PORT || 5001;
+const PORT = process.env.SUPER_ADMIN_PORT || 5000;
 app.use(express.json());
 app.use(cookieParser());
 

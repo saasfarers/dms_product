@@ -1,11 +1,15 @@
 [
   {
-    "path": "/",
+    "path": "/superadmin",
     "element": "Layout",
     "children":[
-        {
-            
-        }
+      {
+        "path": "register",
+        "element": "Register",
+        "children": [
+          
+        ]
+      }
     ]
   }
 ]

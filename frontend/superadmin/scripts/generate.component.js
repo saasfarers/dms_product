@@ -21,7 +21,7 @@ fs.mkdirSync(baseDir, { recursive: true });
 const componentFilePath = path.join(baseDir, `${componentName}.js`);
 const componentContent = `
 import React from 'react';
-// import { ${componentName}Data } from './${componentName}.data';
+import { ${componentName}Data } from './${componentName}.data';
 import { sample${componentName}function } from './${componentName}.helper';
 import { fetch${componentName}Data } from './${componentName}.api';
 import useStyles from './${componentName}.style';
@@ -42,26 +42,27 @@ export default ${componentName};
 fs.writeFileSync(componentFilePath, componentContent, 'utf8');
 
 // ------------------------------------------ Create ComponentName.data.js ------------------------------------------
-// const dataFilePath = path.join(baseDir, `${componentName}.data.js`);
-// const dataContent = `
-// const ${componentName}Data = [
-//     { title: '${componentName}', description: '${componentName} description here' },
-//     { title: '${componentName}', description: '${componentName} description here' }
-// ];
+const dataFilePath = path.join(baseDir, `${componentName}.data.js`);
+const dataContent = `
+const ${componentName}Data = {
+    en: { '${componentName}_key': "Value" },
+    fr: { '${componentName}_key': "Valeur" },
+    ar: { '${componentName}_key': "قيمة" }
+};
 
-// module.export = {
-//     ${componentName}Data
-// }
-// `.trim();
+module.export = {
+    ${componentName}Data
+}
+`.trim();
 
-// fs.writeFileSync(dataFilePath, dataContent, 'utf8');
+fs.writeFileSync(dataFilePath, dataContent, 'utf8');
 
 // ------------------------------------------ Create ComponentName.style.js ------------------------------------------
 const styleFilePath = path.join(baseDir, `${componentName}.style.js`);
 const styleContent = `
 import { makeStyles } from '@mui/styles';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
     root: {
         padding: '20px',
         backgroundColor: '#f9f9f9',
@@ -113,3 +114,5 @@ console.log(`✅ Component "${componentName}" created with:`);
 console.log(`   - ${componentName}.js`);
 console.log(`   - ${componentName}.data.js`);
 console.log(`   - ${componentName}.style.js`);
+console.log(`   - ${componentName}.helper.js`);
+console.log(`   - ${componentName}.api.js`);

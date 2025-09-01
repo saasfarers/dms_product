@@ -1,4 +1,8 @@
 import React from 'react';
+import {
+    Container,
+    Box,
+} from "@mui/material";
 import { Outlet } from "react-router-dom";
 import { LayoutData } from './Layout.data';
 import { sampleLayoutfunction } from './Layout.helper';
@@ -10,7 +14,9 @@ function Layout() {
 
     return (
         <>
-            <Outlet/>
+            <Container maxWidth={false} disableGutters>
+                <Outlet/>
+            </Container>
         </>
     );
 }

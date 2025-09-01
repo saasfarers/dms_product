@@ -8,13 +8,13 @@ import {
   Link,
 } from "@mui/material";
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
-import { RegisterData } from './Register.data';
-import { sampleRegisterfunction } from './Register.helper';
-import { fetchRegisterData } from './Register.api';
-import useStyles from './Register.style';
+import { LoginData } from './Login.data';
+import { sampleLoginfunction } from './Login.helper';
+import { fetchLoginData } from './Login.api';
+import useStyles from './Login.style';
 import AppContext from '../../contextState/AppContext';
 
-function Register() {
+function Login() {
     const classes = useStyles();
     const { language } = useContext(AppContext);
 
@@ -96,25 +96,24 @@ function Register() {
                         </Box>
 
                         {/* Input fields */}
-                        <TextField label="UserName" variant="outlined" fullWidth />
                         <TextField label="Email" variant="outlined" fullWidth />
                         <TextField label="Password" type="password" variant="outlined" fullWidth />
 
                         {/* Register Button */}
                         <Button variant="contained" color="success" fullWidth>
-                            Register
+                            Login
                         </Button>
 
                         {/* Login link */}
                         <Typography variant="body2" align="center" sx={{ mt: 1 }}>
-                            Already have an account?{" "}
+                            New to this site?{" "}
                             <Link
                                 component={RouterLink}
-                                to="/login"
+                                to="/register"
                                 underline="hover"
                                 sx={{ fontWeight: "bold" }}
                             >
-                                Login
+                                Register
                             </Link>
                         </Typography>
                     </Box>
@@ -124,4 +123,4 @@ function Register() {
     );
 }
 
-export default Register;
+export default Login;

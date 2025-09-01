@@ -4,12 +4,14 @@ import AppProvider from './contextState/AppProvider';
 import routeConfig from './routes.json';
 import Layout from './component/layout/Layout'
 import Register from './component/register/Register'
+import Login from './component/login/Login'
 
 
 
 const componentsMap = {
   Layout,
-  Register
+  Register,
+  Login
 };
 
 

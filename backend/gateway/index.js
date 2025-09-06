@@ -1,5 +1,6 @@
 require('dotenv-flow').config();
 const express = require('express');
+const cors = require("cors");
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const { errorHandler } = require('../shared/utils/errorHandler');
 const { scheduleLogClear } = require('../shared/utils/logCleaner');
@@ -8,6 +9,11 @@ const { scheduleLogClear } = require('../shared/utils/logCleaner');
 const app = express();
 const PORT = process.env.GATEWAY_PORT || 4000;
 const SUPER_ADMIN_PORT = process.env.SUPER_ADMIN_PORT || 5000;
+app.use(cors({
+  origin: "http://localhost:3000",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
 
 
 app.use('/superadmin', createProxyMiddleware({

@@ -58,10 +58,10 @@ function Login() {
                         </Box>
                         <Box>
                             <Typography variant="h4" fontWeight="bold" color="text.primary">
-                                Mosque Hub
+                                {LoginData[language].hub}
                             </Typography>
                             <Typography variant="body1" color="text.secondary">
-                                Islamic Management System
+                                {LoginData[language].system}
                             </Typography>
                         </Box>
                     </Box>
@@ -91,29 +91,29 @@ function Login() {
                         >
                         <AdminPanelSettingsIcon sx={{ color: "gold", mr: 1 }} />
                         <Typography variant="h6" fontWeight="bold" color="text.primary">
-                            Super Admin
+                            {LoginData[language].admin}
                         </Typography>
                         </Box>
 
                         {/* Input fields */}
-                        <TextField label="Email" variant="outlined" fullWidth />
-                        <TextField label="Password" type="password" variant="outlined" fullWidth />
+                        <TextField label={LoginData[language].email} variant="outlined" fullWidth />
+                        <TextField label={LoginData[language].password} type="password" variant="outlined" fullWidth />
 
                         {/* Register Button */}
                         <Button variant="contained" color="success" fullWidth>
-                            Login
+                            {LoginData[language].login}
                         </Button>
 
                         {/* Login link */}
                         <Typography variant="body2" align="center" sx={{ mt: 1 }}>
-                            New to this site?{" "}
+                            {LoginData[language].newsite}{" "}
                             <Link
                                 component={RouterLink}
                                 to="/register"
                                 underline="hover"
                                 sx={{ fontWeight: "bold" }}
                             >
-                                Register
+                                {LoginData[language].register}
                             </Link>
                         </Typography>
                     </Box>

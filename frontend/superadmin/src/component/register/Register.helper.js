@@ -1,7 +1,15 @@
-const sampleRegisterfunction = () => {
+export const sampleRegisterfunction = () => {
     console.log('Register helper function');
 };
 
-module.export = {
-    sampleRegisterfunction
-}
+export const handleSetPageData = (e, setPageData) => {
+    try {
+        const { name, value } = e.target;
+        setPageData((prev) => ({
+            ...prev,
+            [name]: value
+        }));
+    } catch (error) {
+        console.log(error)
+    }
+};

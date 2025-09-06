@@ -6,7 +6,7 @@ const { protect } = require('../../../shared/middleware/superadminjwt.middleware
 
 superadminauth.post('/register', register);
 superadminauth.post('/login', login);
-superadminauth.post('/loggeduser', protect, loggeduser);
+superadminauth.get('/loggeduser', protect, loggeduser);
 superadminauth.post('/logout', logout);
 
 superadminauth.get('/token', protect, (req, res) => {

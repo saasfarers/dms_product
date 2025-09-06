@@ -27,7 +27,8 @@ const register = async (req, res, next) => {
         });
 
         return res.status(200).json({
-            user,
+            status: true,
+            message: user.message,
             accessToken,
             refreshToken
         });
@@ -74,7 +75,7 @@ const loggeduser = async (req, res, next) => {
         if(user.status == false){
             throw new Error(user.message);
         }
-        res.status(200).json({ user });
+        res.status(200).json({ status: true, message: user.message });
     } catch (error) {
         next(error);
     }

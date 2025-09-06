@@ -10,7 +10,7 @@ const protect = async (req, res, next) => {
             const decoded = jwt.verify(accessToken, process.env.JWT_ACCESS_SECRET);
             const user = await User.findById(decoded.id);
             if (!user) {
-                return res.status(403).json({ message: 'Invalid refresh token, please log in again' });
+                return res.status(200).json({status: false, message: 'Invalid refresh token, please log in again' });
             }
             req.loggedUser = decoded.id;
             return next();
@@ -19,13 +19,13 @@ const protect = async (req, res, next) => {
             
             const refreshToken = req.cookies.refreshToken;
             if (!refreshToken) {
-                return res.status(401).json({ message: 'Session expired, please log in again' });
+                return res.status(200).json({status: false, message: 'Session expired, please log in again' });
             }
             const decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
             const user = await User.findById(decoded.id);
 
             if (!user) {
-                return res.status(403).json({ message: 'Invalid refresh token, please log in again' });
+                return res.status(200).json({status: false, message: 'Invalid refresh token, please log in again' });
             }
 
             const newAccessToken = generateAccessToken(user._id);
@@ -41,7 +41,7 @@ const protect = async (req, res, next) => {
         }
        
     } catch (error) {
-        return res.status(401).json({ message: 'Invalid token, please log in again' });
+        return res.status(200).json({status: false, message: 'Invalid token, please log in again' });
     }
 };
 

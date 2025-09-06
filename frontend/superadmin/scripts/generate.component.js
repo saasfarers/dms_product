@@ -44,15 +44,11 @@ fs.writeFileSync(componentFilePath, componentContent, 'utf8');
 // ------------------------------------------ Create ComponentName.data.js ------------------------------------------
 const dataFilePath = path.join(baseDir, `${componentName}.data.js`);
 const dataContent = `
-const ${componentName}Data = {
+export const ${componentName}Data = {
     en: { '${componentName}_key': "Value" },
     fr: { '${componentName}_key': "Valeur" },
     ar: { '${componentName}_key': "قيمة" }
 };
-
-module.export = {
-    ${componentName}Data
-}
 `.trim();
 
 fs.writeFileSync(dataFilePath, dataContent, 'utf8');
@@ -77,13 +73,9 @@ fs.writeFileSync(styleFilePath, styleContent, 'utf8');
 // ------------------------------------------ Create ComponentName.function.js ------------------------------------------
 const functionFilePath = path.join(baseDir, `${componentName}.helper.js`);
 const functionContent = `
-const sample${componentName}function = () => {
+export const sample${componentName}function = () => {
     console.log('${componentName} helper function');
 };
-
-module.export = {
-    sample${componentName}function
-}
 `.trim();
 
 fs.writeFileSync(functionFilePath, functionContent, 'utf8');
@@ -92,7 +84,7 @@ fs.writeFileSync(functionFilePath, functionContent, 'utf8');
 const apiContent = `
 import axios from 'axios';
 
-const fetch${componentName}Data = async () => {
+export const fetch${componentName}Data = async () => {
     try {
         const response = await axios.get(\`\${process.env.REACT_APP_API_URL}/${componentName.toLowerCase()}\`);
         return response.data;
@@ -101,10 +93,6 @@ const fetch${componentName}Data = async () => {
         throw error;
     }
 };
-
-module.export = {
-    fetch${componentName}Data
-}
 `.trim();
 
 fs.writeFileSync(path.join(baseDir, `${componentName}.api.js`), apiContent, 'utf8');

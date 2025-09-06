@@ -17,7 +17,7 @@ const errorHandler = (err, req, res, next) => {
     if (error) console.error('Failed to write to log:', error);
   });
 
-  res.status(err.status || 500).json({
+  res.status(200).json({
     status: false,
     message: err.message || 'Server Error',
   });

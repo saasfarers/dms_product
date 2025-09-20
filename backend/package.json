@@ -5,13 +5,16 @@
   "scripts": {
     "start:gateway:dev": "cross-env NODE_ENV=development NODE_OPTIONS=--no-deprecation nodemon gateway/index.js",
     "start:superadmin:dev": "cross-env NODE_ENV=development NODE_OPTIONS=--no-deprecation nodemon services/superadmin/index.js",
-    "start:all:dev": "concurrently \"npm run start:gateway:dev\" \"npm run start:superadmin:dev\" ",
+    "start:tenent:dev": "cross-env NODE_ENV=development NODE_OPTIONS=--no-deprecation nodemon services/tenent/index.js",
+    "start:all:dev": "concurrently \"npm run start:gateway:dev\" \"npm run start:superadmin:dev\" \"npm run start:tenent:dev\"",
     "start:gateway:staging": "cross-env NODE_ENV=staging NODE_OPTIONS=--no-deprecation nodemon gateway/index.js",
     "start:superadmin:staging": "cross-env NODE_ENV=staging NODE_OPTIONS=--no-deprecation nodemon services/superadmin/index.js",
-    "start:all:staging": "concurrently \"npm run start:gateway:staging\" \"npm run start:superadmin:staging\" ",
+    "start:tenent:staging": "cross-env NODE_ENV=staging NODE_OPTIONS=--no-deprecation nodemon services/tenent/index.js",
+    "start:all:staging": "concurrently \"npm run start:gateway:staging\" \"npm run start:superadmin:staging\" \"npm run start:tenent:staging\"",
     "start:gateway:prod": "cross-env NODE_ENV=production NODE_OPTIONS=--no-deprecation nodemon gateway/index.js",
     "start:superadmin:prod": "cross-env NODE_ENV=production NODE_OPTIONS=--no-deprecation nodemon services/superadmin/index.js",
-    "start:all:prod": "concurrently \"npm run start:gateway:prod\" \"npm run start:superadmin:prod\" "
+    "start:tenent:prod": "cross-env NODE_ENV=production NODE_OPTIONS=--no-deprecation nodemon services/tenent/index.js",
+    "start:all:prod": "concurrently \"npm run start:gateway:prod\" \"npm run start:superadmin:prod\" \"npm run start:tenent:prod\""
   },
   "keywords": [],
   "author": "",
@@ -23,6 +26,7 @@
     "nodemon": "^3.1.10"
   },
   "dependencies": {
+    "axios": "^1.12.2",
     "bcryptjs": "^3.0.2",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",

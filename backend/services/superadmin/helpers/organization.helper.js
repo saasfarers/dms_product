@@ -1,15 +1,15 @@
 const Organization = require('../../../models/superadminmodels/organization.model');
 
-const createOrganization = async (name="", domain="", contactEmail="", password="", contactPhone="", address={}, logoUrl="", subscriptionPlan="", subscriptionExpiresAt="", createdBy="") => {
+const createOrganization = async (name="", domain="", userName="", password="", contactPhone="", address={}, logoUrl="", subscriptionPlan="", subscriptionExpiresAt="", createdBy="") => {
     try {
-        const organizationExists = await Organization.findOne({ contactEmail });
+        const organizationExists = await Organization.findOne({ userName });
         if (organizationExists) {
             return {status: false, message: 'Organization already exists'};
         }
         const organization = await Organization.create({
             name,
             domain,
-            contactEmail,
+            userName,
             password,
             contactPhone,
             address,
@@ -50,9 +50,9 @@ const readOneOrganization = async (createdBy="", organizationId="") => {
     }
 }
 
-const updateOrganization = async (organizationId="", name="", domain="", contactEmail="", password="", contactPhone="", address={}, logoUrl="", subscriptionPlan="", subscriptionExpiresAt="", createdBy="") => {
+const updateOrganization = async (organizationId="", name="", domain="", userName="", password="", contactPhone="", address={}, logoUrl="", subscriptionPlan="", subscriptionExpiresAt="", createdBy="") => {
     try {
-        const organizationExists = await Organization.findOne({ contactEmail });
+        const organizationExists = await Organization.findOne({ userName });
         if (!organizationExists) {
             return {status: false, message: 'Organization not exists'};
         }
@@ -62,7 +62,7 @@ const updateOrganization = async (organizationId="", name="", domain="", contact
             $set: {
             name,
             domain,
-            contactEmail,
+            userName,
             password,
             contactPhone,
             address,

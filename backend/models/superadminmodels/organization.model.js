@@ -21,9 +21,9 @@ const organizationSchema = new mongoose.Schema(
       lowercase: true,
       trim: true,
     },
-    contactEmail: {
+    userName: {
       type: String,
-      required: [true, 'Contact email is required'],
+      required: [true, 'userName is required'],
       lowercase: true,
       trim: true,
     },

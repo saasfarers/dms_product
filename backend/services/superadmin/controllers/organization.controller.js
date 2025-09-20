@@ -5,7 +5,7 @@ const addorganization = async (req, res, next) => {
         const {
             name,
             domain,
-            contactEmail,
+            userName,
             password,
             contactPhone,
             address: { street, city, state, country, postalCode } = {},
@@ -15,7 +15,7 @@ const addorganization = async (req, res, next) => {
             createdBy,
         } = req.body;
         const addressObj = { street, city, state, country, postalCode };
-        const organization = await createOrganization(name, domain, contactEmail, password, contactPhone, addressObj, logoUrl, subscriptionPlan, subscriptionExpiresAt, createdBy);
+        const organization = await createOrganization(name, domain, userName, password, contactPhone, addressObj, logoUrl, subscriptionPlan, subscriptionExpiresAt, createdBy);
         if(organization.status == false){
             throw new Error(organization.message);
         }
@@ -63,7 +63,7 @@ const editorganization = async (req, res, next) => {
         const {
             name,
             domain,
-            contactEmail,
+            userName,
             password,
             contactPhone,
             address: { street, city, state, country, postalCode } = {},
@@ -73,7 +73,7 @@ const editorganization = async (req, res, next) => {
             createdBy,
         } = req.body;
         const addressObj = { street, city, state, country, postalCode };
-        const organization = await updateOrganization(organizationId, name, domain, contactEmail, password, contactPhone, addressObj, logoUrl, subscriptionPlan, subscriptionExpiresAt, createdBy);
+        const organization = await updateOrganization(organizationId, name, domain, userName, password, contactPhone, addressObj, logoUrl, subscriptionPlan, subscriptionExpiresAt, createdBy);
         if(organization.status == false){
             throw new Error(organization.message);
         }

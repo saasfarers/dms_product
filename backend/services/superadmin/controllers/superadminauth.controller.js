@@ -10,27 +10,10 @@ const register = async (req, res, next) => {
         if(user.status == false){
             throw new Error(user.message);
         }
-        const accessToken = generateAccessToken(user.message._id);
-        const refreshToken = generateRefreshToken(user.message._id);
-
-        res.cookie('accessToken', accessToken, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'strict',
-            maxAge: parseInt(process.env.JWT_ACCESS_SECRET_MAX_AGE, 10),
-        });
-        res.cookie('refreshToken', refreshToken, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'strict',
-            maxAge: parseInt(process.env.JWT_REFRESH_SECRET_MAX_AGE, 10),
-        });
 
         return res.status(200).json({
             status: true,
             message: user.message,
-            accessToken,
-            refreshToken
         });
     } catch (error) {
         next(error);
@@ -46,13 +29,13 @@ const login = async (req, res, next) => {
         const accessToken = generateAccessToken(user.message._id);
         const refreshToken = generateRefreshToken(user.message._id);
 
-        res.cookie('accessToken', accessToken, {
+        res.cookie('adminaccessToken', accessToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'strict',
             maxAge: parseInt(process.env.JWT_ACCESS_SECRET_MAX_AGE, 10),
         });
-        res.cookie('refreshToken', refreshToken, {
+        res.cookie('adminrefreshToken', refreshToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'strict',
@@ -60,9 +43,8 @@ const login = async (req, res, next) => {
         });
 
         res.status(200).json({
-            user,
-            accessToken,
-            refreshToken
+            status: true,
+            message: user.message,
         });
     } catch (error) {
         next(error);

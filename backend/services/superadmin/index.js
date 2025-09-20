@@ -7,6 +7,7 @@ const connectDB = require('../../shared/config/db');
 const { errorHandler } = require('../../shared/utils/errorHandler');
 const { organization } = require('./routes/organization.route');
 const { superadminauth } = require('./routes/superadminauth.route');
+const { tenentcheck } = require('./routes/tenentcheck.route');
 
 
 const app = express();
@@ -18,6 +19,7 @@ app.use(cookieParser());
 connectDB(process.env.SUPER_ADMIN_PORT_NAME , process.env.SUPER_ADMIN_MONGO_URI);
 
 app.use('/superadminauth', superadminauth);
+app.use('/tenentcheck', tenentcheck);
 app.use('/organization', organization);
 
 

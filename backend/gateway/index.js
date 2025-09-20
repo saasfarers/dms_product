@@ -9,6 +9,7 @@ const { scheduleLogClear } = require('../shared/utils/logCleaner');
 const app = express();
 const PORT = process.env.GATEWAY_PORT || 4000;
 const SUPER_ADMIN_PORT = process.env.SUPER_ADMIN_PORT || 5000;
+const TENENT_PORT = process.env.TENENT_PORT || 5001;
 app.use(cors({
   origin: "http://localhost:3000",
   methods: ["GET", "POST", "PUT", "DELETE"],
@@ -18,6 +19,10 @@ app.use(cors({
 
 app.use('/superadmin', createProxyMiddleware({
   target: `${process.env.BASE_URL}:${SUPER_ADMIN_PORT}`,
+  changeOrigin: true,
+}));
+app.use('/tenent', createProxyMiddleware({
+  target: `${process.env.BASE_URL}:${TENENT_PORT}`,
   changeOrigin: true,
 }));
 

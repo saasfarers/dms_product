@@ -10,34 +10,7 @@ export const fetchRegisterData = async () => {
     }
 };
 
-export const handleLoggedUser = async (navigate, setSnackbar) => {
-  try {
-    const response = await axios.get(
-      `${process.env.REACT_APP_API_URL}/superadmin/superadminauth/loggeduser`,
-      {
-        headers: {
-          "Content-Type": "application/json"
-        },
-        withCredentials: true,
-      }
-    );
-    if(response?.data?.status == true){
-        navigate('/login')
-    }else{
-        
-    }
-    
-  } catch (error) {
-    setSnackbar((prev) => ({
-        ...prev,
-        open : true,
-        message : error,
-        severity : "error"
-    }));
-  }
-};
-
-export const handleRegister= async (pageData, setPageData, navigate, setSnackbar) => {
+export const register= async (pageData) => {
   try {
     const response = await axios.post(
       `${process.env.REACT_APP_API_URL}/superadmin/superadminauth/register`,
@@ -49,35 +22,9 @@ export const handleRegister= async (pageData, setPageData, navigate, setSnackbar
         withCredentials: true,
       }
     );
-    if(response?.data?.status == true){
-        setPageData((prev) => ({
-            ...prev,
-            name : "",
-            email : "",
-            password : ""
-        }));
-        setSnackbar((prev) => ({
-            ...prev,
-            open : true,
-            message : "Register Successfully.",
-            severity : "success"
-        }));
-        navigate('/login')
-    }else{
-        setSnackbar((prev) => ({
-            ...prev,
-            open : true,
-            message : response?.data?.message,
-            severity : "error"
-        }));
-    }
+    return response?.data;
     
   } catch (error) {
-    setSnackbar((prev) => ({
-        ...prev,
-        open : true,
-        message : error,
-        severity : "error"
-    }));
+     return error
   }
 };

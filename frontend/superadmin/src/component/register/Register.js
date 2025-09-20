@@ -1,4 +1,4 @@
-import React, { useContext , useState, useEffect } from 'react';
+import React, { useContext , useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import {
   Box,
@@ -8,10 +8,9 @@ import {
   Link,
 } from "@mui/material";
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
-import { CircularProgress } from "@mui/material";
 import { RegisterData } from './Register.data';
-import { sampleRegisterfunction, handleSetPageData } from './Register.helper';
-import { fetchRegisterData, handleRegister, handleLoggedUser } from './Register.api';
+import { sampleRegisterfunction } from './Register.helper';
+import { fetchRegisterData, register } from './Register.api';
 import useStyles from './Register.style';
 import AppContext from '../../contextState/AppContext';
 
@@ -27,10 +26,51 @@ function Register() {
     }
     const [pageData, setPageData] = useState(initialpagedata);
 
-    useEffect(() => {
-        handleLoggedUser(navigate, setSnackbar);
-    }, []);
-
+    const handleSetPageData = (e) => {
+        try {
+            const { name, value } = e.target;
+            setPageData((prev) => ({
+                ...prev,
+                [name]: value
+            }));
+        } catch (error) {
+            console.log(error)
+        }
+    };
+    const handleRegister = async () => {
+        try {
+            const dataRegister = await register(pageData);
+            if (dataRegister?.status == true) {
+                setPageData((prev) => ({
+                    ...prev,
+                    name : "",
+                    email : "",
+                    password : ""
+                }));
+                setSnackbar((prev) => ({
+                    ...prev,
+                    open : true,
+                    message : "Register Successfully.",
+                    severity : "success"
+                }));
+                navigate('/login')
+            }else{
+                setSnackbar((prev) => ({
+                    ...prev,
+                    open : true,
+                    message : dataRegister?.message,
+                    severity : "error"
+                }));
+            }
+        } catch (error) {
+            setSnackbar((prev) => ({
+                ...prev,
+                open : true,
+                message : error,
+                severity : "error"
+            }));
+        }
+    }
 
     return (
         <>
@@ -110,12 +150,12 @@ function Register() {
                         </Box>
 
                         {/* Input fields */}
-                        <TextField label={RegisterData[language].name} variant="outlined" fullWidth name="name" value={pageData.name} onChange={(e) => handleSetPageData(e, setPageData)}/>
-                        <TextField label={RegisterData[language].email} variant="outlined" fullWidth name="email" value={pageData.email} onChange={(e) => handleSetPageData(e, setPageData)}/>
-                        <TextField label={RegisterData[language].password} type="password" variant="outlined" fullWidth name="password" value={pageData.password} onChange={(e) => handleSetPageData(e, setPageData)}/>
+                        <TextField label={RegisterData[language].name} variant="outlined" fullWidth name="name" value={pageData.name} onChange={(e) => handleSetPageData(e)}/>
+                        <TextField label={RegisterData[language].email} variant="outlined" fullWidth name="email" value={pageData.email} onChange={(e) => handleSetPageData(e)}/>
+                        <TextField label={RegisterData[language].password} type="password" variant="outlined" fullWidth name="password" value={pageData.password} onChange={(e) => handleSetPageData(e)}/>
 
                         {/* Register Button */}
-                        <Button variant="contained" color="success" fullWidth onClick={(e) => handleRegister(pageData, setPageData, navigate, setSnackbar) }>
+                        <Button variant="contained" color="success" fullWidth onClick={(e) => handleRegister() }>
                             {RegisterData[language].register}
                         </Button>
 

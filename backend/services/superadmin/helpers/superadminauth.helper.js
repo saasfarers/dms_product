@@ -20,7 +20,6 @@ const superAdminToBeLogin = async (email="", password="") => {
             deleted: false,
             isActive: true,
         });
-        console.log(user)
         if (!user || !(await user.matchPassword(password))) {
             return {status: false, message: 'Invalid email or password'};
         }
@@ -45,10 +44,25 @@ const superAdminToBeLoggedin = async (loggedUser="") => {
         return {status: false, message: error};
     }
 }
+const superAdminToBeEdited = async (loggedUser="", updateData={}) => {
+    try {
+        const updatedUser = await User.findByIdAndUpdate(
+            loggedUser,
+            { $set: updateData }
+        );
+        if (!updatedUser) {
+            return {status: false, message: updatedUser};;
+        }
+        return {status: true, message: updatedUser};
+    } catch (error) {
+        return {status: false, message: error};
+    }
+}
 
 
 module.exports = {
     superAdminToBeRegister,
     superAdminToBeLogin,
     superAdminToBeLoggedin,
+    superAdminToBeEdited
 };

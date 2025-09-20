@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const fetchLayoutData = async () => {
+export const fetchLayoutData = async () => {
     try {
         const response = await axios.get(`${process.env.REACT_APP_API_URL}/layout`);
         return response.data;
@@ -10,6 +10,20 @@ const fetchLayoutData = async () => {
     }
 };
 
-module.export = {
-    fetchLayoutData
-}
+export const loggeduser = async () => {
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_URL}/superadmin/superadminauth/loggeduser`,
+      {
+        headers: {
+          "Content-Type": "application/json"
+        },
+        withCredentials: true,
+      }
+    );
+    return response?.data;
+    
+  } catch (error) {
+    return error
+  }
+};

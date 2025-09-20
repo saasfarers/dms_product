@@ -5,13 +5,15 @@ import routeConfig from './routes.json';
 import Layout from './component/layout/Layout'
 import Register from './component/register/Register'
 import Login from './component/login/Login'
+import Dashboard from './component/dashboard/Dashboard'
 
 
 
 const componentsMap = {
   Layout,
   Register,
-  Login
+  Login,
+  Dashboard
 };
 
 

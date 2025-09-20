@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import {
   Box,
   Typography,
@@ -10,13 +10,65 @@ import {
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import { LoginData } from './Login.data';
 import { sampleLoginfunction } from './Login.helper';
-import { fetchLoginData } from './Login.api';
+import { fetchLoginData, login } from './Login.api';
 import useStyles from './Login.style';
 import AppContext from '../../contextState/AppContext';
 
 function Login() {
     const classes = useStyles();
-    const { language } = useContext(AppContext);
+    const navigate = useNavigate();
+    const { language, setSnackbar } = useContext(AppContext);
+
+    const initialpagedata = {
+        email : "",
+        password : ""
+    }
+    const [pageData, setPageData] = useState(initialpagedata);
+
+    const handleSetPageData = (e) => {
+        try {
+            const { name, value } = e.target;
+            setPageData((prev) => ({
+                ...prev,
+                [name]: value
+            }));
+        } catch (error) {
+            console.log(error)
+        }
+    };
+    const handleLogin = async () => {
+        try {
+            const dataLogin = await login(pageData);
+            if (dataLogin?.status == true) {
+                setPageData((prev) => ({
+                    ...prev,
+                    email : "",
+                    password : ""
+                }));
+                setSnackbar((prev) => ({
+                    ...prev,
+                    open : true,
+                    message : "Login Successfully.",
+                    severity : "success"
+                }));
+                navigate('/dashboard')
+            }else{
+                setSnackbar((prev) => ({
+                    ...prev,
+                    open : true,
+                    message : dataLogin?.message,
+                    severity : "error"
+                }));
+            }
+        } catch (error) {
+            setSnackbar((prev) => ({
+                ...prev,
+                open : true,
+                message : error,
+                severity : "error"
+            }));
+        }
+    }
 
     return (
         <>
@@ -96,11 +148,11 @@ function Login() {
                         </Box>
 
                         {/* Input fields */}
-                        <TextField label={LoginData[language].email} variant="outlined" fullWidth />
-                        <TextField label={LoginData[language].password} type="password" variant="outlined" fullWidth />
+                        <TextField label={LoginData[language].email} variant="outlined" fullWidth name="email" value={pageData.email} onChange={(e) => handleSetPageData(e)}/>
+                        <TextField label={LoginData[language].password} type="password" variant="outlined" fullWidth name="password" value={pageData.password} onChange={(e) => handleSetPageData(e)}/>
 
                         {/* Register Button */}
-                        <Button variant="contained" color="success" fullWidth>
+                        <Button variant="contained" color="success" fullWidth onClick={(e) => handleLogin()}>
                             {LoginData[language].login}
                         </Button>
 

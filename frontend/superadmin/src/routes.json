@@ -16,6 +16,13 @@
         "children": [
           
         ]
+      },
+      {
+        "path": "dashboard",
+        "element": "Dashboard",
+        "children": [
+          
+        ]
       }
     ]
   }

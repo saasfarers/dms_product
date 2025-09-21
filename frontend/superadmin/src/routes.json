@@ -18,10 +18,23 @@
         ]
       },
       {
-        "path": "dashboard",
-        "element": "Dashboard",
+        "path": "/",
+        "element": "Loggedlayout",
         "children": [
-          
+          {
+            "path": "/dashboard",
+            "element": "Dashboard",
+            "children": [
+              
+            ]
+          },
+          {
+            "path": "/platform-management",
+            "element": "PlatformManagement",
+            "children": [
+              
+            ]
+          }
         ]
       }
     ]

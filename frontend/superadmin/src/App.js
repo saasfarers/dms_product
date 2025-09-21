@@ -5,7 +5,9 @@ import routeConfig from './routes.json';
 import Layout from './component/layout/Layout'
 import Register from './component/register/Register'
 import Login from './component/login/Login'
+import Loggedlayout from './component/loggedlayout/Loggedlayout'
 import Dashboard from './component/dashboard/Dashboard'
+import PlatformManagement from './component/platformmanagement/Platformmanagement'
 
 
 
@@ -13,7 +15,9 @@ const componentsMap = {
   Layout,
   Register,
   Login,
-  Dashboard
+  Loggedlayout,
+  Dashboard,
+  PlatformManagement
 };
 
 

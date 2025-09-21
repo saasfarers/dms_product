@@ -9,15 +9,15 @@ import {
 } from "@mui/material";
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import { LoginData } from './Login.data';
-import { sampleLoginfunction } from './Login.helper';
-import { fetchLoginData, login } from './Login.api';
-import useStyles from './Login.style';
+import { } from './Login.helper';
+import { login } from './Login.api';
+// import useStyles from './Login.style';
 import AppContext from '../../contextState/AppContext';
 
 function Login() {
-    const classes = useStyles();
+    // const classes = useStyles();
     const navigate = useNavigate();
-    const { language, setSnackbar } = useContext(AppContext);
+    const { language, setLanguage, setSnackbar } = useContext(AppContext);
 
     const initialpagedata = {
         email : "",
@@ -39,7 +39,7 @@ function Login() {
     const handleLogin = async () => {
         try {
             const dataLogin = await login(pageData);
-            if (dataLogin?.status == true) {
+            if (dataLogin?.status === true) {
                 setPageData((prev) => ({
                     ...prev,
                     email : "",
@@ -51,6 +51,7 @@ function Login() {
                     message : "Login Successfully.",
                     severity : "success"
                 }));
+                setLanguage(dataLogin.message.language);
                 navigate('/dashboard')
             }else{
                 setSnackbar((prev) => ({

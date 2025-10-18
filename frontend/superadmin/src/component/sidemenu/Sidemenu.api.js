@@ -13,7 +13,7 @@ export const fetchSidemenuData = async () => {
 export const changeLanguage = async (newLanguage) => {
   try {
     const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/superadmin/superadminauth/loggeduseredit`, 
+        `${process.env.REACT_APP_API_URL}/authenticate/superadminauthenticate/loggeduseredit`, 
         { language: newLanguage },
         {
             headers: {
@@ -32,7 +32,7 @@ export const changeLanguage = async (newLanguage) => {
 export const logout = async () => {
   try {
     const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/superadmin/superadminauth/logout`, 
+        `${process.env.REACT_APP_API_URL}/authenticate/superadminauthenticate/logout`, 
         {  },
         {
             headers: {

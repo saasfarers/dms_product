@@ -41,16 +41,11 @@ function Register() {
         try {
             const dataRegister = await register(pageData);
             if (dataRegister?.status == true) {
-                setPageData((prev) => ({
-                    ...prev,
-                    name : "",
-                    email : "",
-                    password : ""
-                }));
+                setPageData(initialpagedata);
                 setSnackbar((prev) => ({
                     ...prev,
                     open : true,
-                    message : "Register Successfully.",
+                    message : dataRegister?.message,
                     severity : "success"
                 }));
                 navigate('/login')

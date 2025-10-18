@@ -1,6 +1,8 @@
 const { 
     superAdminToBeRegister,
-    superAdminToBeLogin
+    superAdminToBeLogin,
+    superAdminToBeLoggedin,
+    superAdminToBeEdited
 } = require('../helpers/superadmin.helper');
 const { 
     generateAccessToken, 
@@ -16,7 +18,7 @@ const register = async (req, res, next) => {
         if(user.status == false){
             return res.status(200).json({ status: user.status, message: user.message, data: user.data });
         }
-        return res.status(200).json({ status: true, message: 'User Register Successfully.', data: user.data });
+        return res.status(200).json({ status: user.status, message: user.message, data: user.data });
     } catch (error) {
         next(error);
     }
@@ -45,7 +47,51 @@ const login = async (req, res, next) => {
             maxAge: parseInt(process.env.JWT_REFRESH_SECRET_MAX_AGE, 10),
         });
 
-        res.status(200).json({ status: true, message: 'User Logged Successfully.', data: user.data});
+        return res.status(200).json({ status: user.status, message: user.message, data: user.data });
+    } catch (error) {
+        next(error);
+    }
+};
+const loggeduser = async (req, res, next) => {
+    try {
+        const { loggedUser, loggedDatabase } = req;
+        const user = await superAdminToBeLoggedin(loggedUser);
+        if(user.status == false){
+            return res.status(200).json({ status: user.status, message: user.message, data: user.data });
+        }
+        return res.status(200).json({ status: user.status, message: user.message, data: user.data });
+    } catch (error) {
+        next(error);
+    }
+};
+const loggeduseredit = async (req, res, next) => {
+    try {
+        const { loggedUser, loggedDatabase } = req;
+        const {
+            name,
+            email,
+            password,
+            role,
+            language,
+            isActive
+        } = req.body;
+
+        const updateData = {};
+        if (name) updateData.name = name;
+        if (email) updateData.email = email;
+        if (role) updateData.role = role;
+        if (language) updateData.language = language;
+        if (typeof isActive !== "undefined") updateData.isActive = isActive;
+
+        if (password) {
+            const salt = await bcrypt.genSalt(10);
+            updateData.password = await bcrypt.hash(password, salt);
+        }
+        const user = await superAdminToBeEdited(loggedUser, updateData);
+        if(user.status == false){
+            return res.status(200).json({ status: user.status, message: user.message, data: user.data });
+        }
+        return res.status(200).json({ status: user.status, message: user.message, data: user.data });
     } catch (error) {
         next(error);
     }
@@ -71,5 +117,7 @@ const logout = async (req, res, next) => {
 module.exports = {
     register,
     login,
+    loggeduser,
+    loggeduseredit,
     logout
 };

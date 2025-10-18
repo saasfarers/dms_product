@@ -20,7 +20,7 @@ function Layout() {
             try {
                 const loggedUser = await loggeduser();
                 if (loggedUser?.status === true) {
-                    setLanguage(loggedUser.message.language);
+                    setLanguage(loggedUser.data.language);
                     if (location.pathname === "/login" || location.pathname === "/register") {
                         navigate("/dashboard", { replace: true });
                     }

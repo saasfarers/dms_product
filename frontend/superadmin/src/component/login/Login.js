@@ -40,18 +40,14 @@ function Login() {
         try {
             const dataLogin = await login(pageData);
             if (dataLogin?.status === true) {
-                setPageData((prev) => ({
-                    ...prev,
-                    email : "",
-                    password : ""
-                }));
+                setPageData(initialpagedata);
                 setSnackbar((prev) => ({
                     ...prev,
                     open : true,
-                    message : "Login Successfully.",
+                    message : dataLogin?.message,
                     severity : "success"
                 }));
-                setLanguage(dataLogin.message.language);
+                setLanguage(dataLogin.data.language);
                 navigate('/dashboard')
             }else{
                 setSnackbar((prev) => ({

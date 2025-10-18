@@ -28,9 +28,40 @@ const superAdminToBeLogin = async (email="", password="") => {
         return {status: false, message: error, data: ''};
     }
 }
+const superAdminToBeLoggedin = async (loggedUser="") => {
+    try {
+        const user = await User.findOne({
+            _id: loggedUser,
+            deleted: false,
+            isActive: true,
+        });
+        if (!user) {
+            return {status: false, message: 'Invalid email or password', data: ''};
+        }
+        return {status: true, message: 'Logged User Fetched Successfully.', data: user};
+    } catch (error) {
+        return {status: false, message: error, data: ''};
+    }
+}
+const superAdminToBeEdited = async (loggedUser="", updateData={}) => {
+    try {
+        const updatedUser = await User.findByIdAndUpdate(
+            loggedUser,
+            { $set: updateData }
+        );
+        if (!updatedUser) {
+            return {status: false, message: 'User Not Updated', data: ''};;
+        }
+        return {status: true, message: 'User Updated Successfully.', data: ''};
+    } catch (error) {
+        return {status: false, message: error, data: ''};
+    }
+}
 
 
 module.exports = {
     superAdminToBeRegister,
-    superAdminToBeLogin
+    superAdminToBeLogin,
+    superAdminToBeLoggedin,
+    superAdminToBeEdited
 };

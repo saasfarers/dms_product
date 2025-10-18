@@ -13,7 +13,7 @@ export const fetchLoginData = async () => {
 export const login= async (pageData) => {
   try {
     const response = await axios.post(
-      `${process.env.REACT_APP_API_URL}/superadmin/superadminauth/login`,
+      `${process.env.REACT_APP_API_URL}/authenticate/superadminauthenticate/login`,
       pageData,
       {
         headers: {

@@ -13,7 +13,7 @@ export const fetchLayoutData = async () => {
 export const loggeduser = async () => {
   try {
     const response = await axios.get(
-      `${process.env.REACT_APP_API_URL}/superadmin/superadminauth/loggeduser`,
+      `${process.env.REACT_APP_API_URL}/authenticate/superadminauthenticate/loggeduser`,
       {
         headers: {
           "Content-Type": "application/json"

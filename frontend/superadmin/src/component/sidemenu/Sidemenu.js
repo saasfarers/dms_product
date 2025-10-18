@@ -33,20 +33,20 @@ function Sidemenu() {
 
     const handleLanguage = async (newLanguage) => {
         try {
-            const dataLogin = await changeLanguage(newLanguage);
-            if (dataLogin?.status === true) {
+            const datalanguage = await changeLanguage(newLanguage);
+            if (datalanguage?.status === true) {
                 setLanguage(newLanguage);
                 setSnackbar((prev) => ({
                     ...prev,
                     open : true,
-                    message : "Language Changed Successfully.",
+                    message : datalanguage?.message,
                     severity : "success"
                 }));
             }else{
                 setSnackbar((prev) => ({
                     ...prev,
                     open : true,
-                    message : dataLogin?.message,
+                    message : datalanguage?.message,
                     severity : "error"
                 }));
             }
@@ -61,12 +61,12 @@ function Sidemenu() {
     }
     const handleLogout = async () => {
         try {
-            const dataLogin = await logout();
-            if (dataLogin?.status === true) {
+            const dataLogout = await logout();
+            if (dataLogout?.status === true) {
                 setSnackbar((prev) => ({
                     ...prev,
                     open : true,
-                    message : dataLogin?.message,
+                    message : dataLogout?.message,
                     severity : "success"
                 }));
                 setLanguage('en');
@@ -75,7 +75,7 @@ function Sidemenu() {
                 setSnackbar((prev) => ({
                     ...prev,
                     open : true,
-                    message : dataLogin?.message,
+                    message : dataLogout?.message,
                     severity : "error"
                 }));
             }

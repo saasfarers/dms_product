@@ -13,7 +13,7 @@ export const fetchRegisterData = async () => {
 export const register= async (pageData) => {
   try {
     const response = await axios.post(
-      `${process.env.REACT_APP_API_URL}/superadmin/superadminauth/register`,
+      `${process.env.REACT_APP_API_URL}/authenticate/superadminauthenticate/register`,
       pageData,
       {
         headers: {

@@ -14,7 +14,7 @@ const register = async (req, res, next) => {
         const { name, email, password } = req.body;
         const user = await superAdminToBeRegister(name, email, password);
         if(user.status == false){
-            throw new Error(user.message);
+            return res.status(200).json({ status: user.status, message: user.message, data: user.data });
         }
         return res.status(200).json({ status: true, message: 'User Register Successfully.', data: user.data });
     } catch (error) {
@@ -27,7 +27,7 @@ const login = async (req, res, next) => {
         const database = 'superadmin';
         const user = await superAdminToBeLogin(email, password);
         if(user.status == false){
-            throw new Error(user.message);
+            return res.status(200).json({ status: user.status, message: user.message, data: user.data });
         }
         const accessToken = generateAccessToken(user.data._id, database);
         const refreshToken = generateRefreshToken(user.data._id, database);

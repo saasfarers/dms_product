@@ -16,7 +16,7 @@ const tenentcheck = async (req, res, next) => {
         const { tenentName } = req.body;
         const tenent = await tenentNameTobeCheck(tenentName);
         if(tenent.status == false){
-            throw new Error(tenent.message);
+            return res.status(200).json({ status: tenent.status, message: tenent.message, data: tenent.data });
         }
         res.status(200).json({ status: true, message: "Tenent Fetched Successfully.", data: tenent.data });
     } catch (error) {
@@ -29,12 +29,12 @@ const login = async (req, res, next) => {
         
         const tenent = await tenentTobeLogin(userName, password);
         if(tenent.status == false){
-            throw new Error(tenent.message);
+            return res.status(200).json({ status: tenent.status, message: tenent.message, data: tenent.data });
         }
        
         const tenentDb = await tenentDbConnect(tenent.data.domain);
         if(tenentDb.status == false){
-            throw new Error("DB Not Connected!");
+            return res.status(200).json({ status: tenentDb.status, message: tenentDb.message, data: tenentDb.data });
         }
 
         const accessToken = generateAccessToken(tenent.data._id, tenent.data.domain);

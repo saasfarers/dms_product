@@ -18,7 +18,7 @@ const tenentcheck = async (req, res, next) => {
         if(tenent.status == false){
             return res.status(200).json({ status: tenent.status, message: tenent.message, data: tenent.data });
         }
-        res.status(200).json({ status: true, message: "Tenent Fetched Successfully.", data: tenent.data });
+        return res.status(200).json({ status: tenent.status, message: tenent.message, data: tenent.data });
     } catch (error) {
         next(error);
     }
@@ -52,7 +52,7 @@ const login = async (req, res, next) => {
             maxAge: parseInt(process.env.JWT_REFRESH_SECRET_MAX_AGE, 10),
         });
 
-        res.status(200).json({ status: true, message: "User Logged Successfully.", data: tenent.data });
+        return res.status(200).json({ status: tenent.status, message: tenent.message, data: tenent.data });
     } catch (error) {
         next(error);
     }
@@ -71,7 +71,7 @@ const logout = async (req, res, next) => {
             sameSite: 'strict',
         });
         await tenentDbClosed(loggedDatabase);
-        res.status(200).json({ status: true, message: 'Logged out successfully', data: '' });
+        return res.status(200).json({ status: true, message: 'Logged out successfully', data: '' });
     } catch (error) {
         next(error);
     }

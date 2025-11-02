@@ -1,0 +1,38 @@
+[
+  {
+    "path": "/",
+    "element": "Baselayout",
+    "children": [
+      {
+        "path": "/",
+        "element": "Mainpage",
+        "children": []
+      },
+      {
+        "path": "superadmin",
+        "element": "",
+        "children": []
+      },
+      {
+        "path": "admin",
+        "element": "",
+        "children": []
+      },
+      {
+        "path": "leader",
+        "element": "",
+        "children": []
+      },
+      {
+        "path": "staff",
+        "element": "",
+        "children": []
+      },
+      {
+        "path": "member",
+        "element": "",
+        "children": []
+      }
+    ]
+  }
+]

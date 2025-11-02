@@ -10,27 +10,27 @@
       },
       {
         "path": "superadmin",
-        "element": "",
+        "element": "Superadminlayout",
         "children": []
       },
       {
         "path": "admin",
-        "element": "",
+        "element": "Adminlayout",
         "children": []
       },
       {
         "path": "leader",
-        "element": "",
+        "element": "Leaderlayout",
         "children": []
       },
       {
         "path": "staff",
-        "element": "",
+        "element": "Stafflayout",
         "children": []
       },
       {
         "path": "member",
-        "element": "",
+        "element": "Memberlayout",
         "children": []
       }
     ]

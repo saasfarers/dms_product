@@ -4,11 +4,13 @@ import AppProvider from './contextState/AppProvider';
 import routeConfig from './routes.json';
 import Baselayout from './pages/baselayout/Baselayout';
 import Mainpage from './pages/mainpage/Mainpage';
+import Superadminlayout from './pages/superadminlayout/Superadminlayout';
 
 
 const componentsMap = {
   Baselayout,
-  Mainpage
+  Mainpage,
+  Superadminlayout
 };
 
 

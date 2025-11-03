@@ -1,19 +1,18 @@
-import React, { useState, useContext } from "react";
+import React from 'react';
 import { Outlet } from "react-router-dom";
-import { languageData } from './data';
-import { samplefunction } from './helper';
-import { fetchData } from './api';
-import useStyles from './style';
-import AppContext from '../../contextState/AppContext';
+import { data } from '../../datas/baselayout/data';
+import { samplefunction } from '../../helpers/baselayout/helper';
+import { fetchData } from '../../api/baselayout/api';
+import useStyles from '../../styles/baselayout/style';
 
 function Baselayout() {
     const classes = useStyles();
-    const { language, setLanguage } = useContext(AppContext);
 
     return (
-        <>
+        <div className={classes.root}>
+            Baselayout Component
             <Outlet />
-        </>
+        </div>
     );
 }
 

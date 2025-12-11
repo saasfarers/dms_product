@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-export const fetchData = async () => {
+export const tenentCheck = async (hostname) => {
     try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/endpoint`);
-        return response.data;
+        const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/authenticate/tenentcheck/tenentcheck`, {tenentName: hostname});
+        return {status: data.status, message: data.message, data: data.data};
     } catch (error) {
         console.error('Error fetching data:', error);
-        throw error;
+        return {status: false, message: error.message, data: ""};
     }
 };

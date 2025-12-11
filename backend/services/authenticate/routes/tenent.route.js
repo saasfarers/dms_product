@@ -1,11 +1,13 @@
 const express = require('express');
 const tenentauth = express.Router();
-const { login, tenentcheck, logout } = require('../controllers/tenent.controller');
+const { login, loggeduser, loggeduseredit, logout } = require('../controllers/tenent.controller');
 const { protect } = require('../../../shared/middleware/tenentjwt.middleware');
 
-tenentauth.post('/tenentcheck', tenentcheck);
+
 tenentauth.post('/login', login);
-tenentauth.post('/logout', protect, logout);
+tenentauth.get('/loggeduser', protect, loggeduser);
+tenentauth.post('/loggeduseredit', protect, loggeduseredit);
+tenentauth.get('/logout', protect, logout);
 
 tenentauth.get('/token', (req, res) => {
   res.send('Token Test');

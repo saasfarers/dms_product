@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const User = require('../../models/superadminmodels/superadmin.model');
+const Superadmin = require('../../models/superadmin.model');
 const { generateAccessToken } = require('../utils/generatedToken');
 
 const protect = async (req, res, next) => {
@@ -7,7 +7,7 @@ const protect = async (req, res, next) => {
         const accessToken = req.cookies.adminaccessToken;
         if(accessToken){
             const decoded = jwt.verify(accessToken, process.env.JWT_ACCESS_SECRET);
-            const superadminUser = await User.findById(decoded.id);
+            const superadminUser = await Superadmin.findById(decoded.id);
             if (!superadminUser) {
                 return res.status(200).json({status: false, message: 'Invalid refresh token, please log in again', data: '' });
             }
@@ -22,7 +22,7 @@ const protect = async (req, res, next) => {
             }
             const decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
 
-            const superadminUser = await User.findById(decoded.id);
+            const superadminUser = await Superadmin.findById(decoded.id);
             if (!superadminUser) {
                 return res.status(200).json({status: false, message: 'User Not Found.', data: '' });
             }

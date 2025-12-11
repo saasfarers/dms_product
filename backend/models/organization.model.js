@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
 const Counter = require('./counter.model');
 
 
@@ -20,27 +19,6 @@ const organizationSchema = new mongoose.Schema(
       sparse: true,
       lowercase: true,
       trim: true,
-    },
-    userName: {
-      type: String,
-      required: [true, 'userName is required'],
-      lowercase: true,
-      trim: true,
-    },
-    password: {
-      type: String,
-      required: [true, 'Password is required'],
-      minlength: [6, 'Password must be at least 6 characters'],
-    },
-    contactPhone: {
-      type: String,
-    },
-    address: {
-      street: String,
-      city: String,
-      state: String,
-      country: String,
-      postalCode: String,
     },
     logoUrl: {
       type: String,
@@ -84,16 +62,7 @@ organizationSchema.pre('save', async function (next) {
       return next(err);
     }
   }
-
-  if (this.isModified('password')) {
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
-  }
   next();
 });
-
-organizationSchema.methods.matchPassword = async function (enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.password);
-};
 
 module.exports = mongoose.model('Organization', organizationSchema);

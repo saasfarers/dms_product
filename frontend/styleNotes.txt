@@ -1,0 +1,3 @@
+display: "flex", flexDirection: "column",    -   box alignment flexDirection
+justifyContent: "center",                    -   horizontal center
+alignItems: "center",                        -   Verticle center

@@ -1,4 +1,4 @@
-const User = require('../../../models/superadminmodels/superadmin.model');
+const User = require('../../../models/superadmin.model');
 
 const superAdminToBeRegister = async (name="", email="", password="") => {
     try {

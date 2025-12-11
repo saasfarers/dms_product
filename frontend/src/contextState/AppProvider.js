@@ -6,8 +6,8 @@ import AppContext from './AppContext';
 
 function AppProvider({ children }) {
     const theme = createTheme();
-    const [loading, setLoading] = useState(true);
     const [user, setUser] = useState({userId: "", userName: "", email: "", role: ""});
+    const [platform, setPlatform] = useState('');
     const [language, setLanguage] = useState('en');
     const [snackbar, setSnackbar] = useState({
         open: false,
@@ -15,7 +15,7 @@ function AppProvider({ children }) {
         severity: "info", // "success" | "error" | "warning" | "info"
     });
   return (
-    <AppContext.Provider value={{ loading, setLoading, user, setUser, language, setLanguage, snackbar, setSnackbar }} >
+    <AppContext.Provider value={{ platform, setPlatform, language, setLanguage, user, setUser, snackbar, setSnackbar }} >
       <ThemeProvider theme={theme}>
         {children}
         <Snackbar

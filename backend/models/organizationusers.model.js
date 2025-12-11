@@ -2,21 +2,16 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const Counter = require('./counter.model');
 
-const superadminSchema = new mongoose.Schema(
+
+const organizationuserSchema = new mongoose.Schema(
   {
-    userId: {
+    orguserId: {
       type: String,
       unique: true,
     },
-    name: {
+    userName: {
       type: String,
-      required: [true, 'Name is required'],
-      trim: true,
-    },
-    email: {
-      type: String,
-      required: [true, 'Email is required'],
-      unique: true,
+      required: [true, 'userName is required'],
       lowercase: true,
       trim: true,
     },
@@ -25,10 +20,20 @@ const superadminSchema = new mongoose.Schema(
       required: [true, 'Password is required'],
       minlength: [6, 'Password must be at least 6 characters'],
     },
+    contactPhone: {
+      type: String,
+    },
+    address: {
+      street: String,
+      city: String,
+      state: String,
+      country: String,
+      postalCode: String,
+    },
     role: {
       type: String,
-      enum: ['superadmin'],
-      default: 'superadmin',
+      enum: ['admin', 'head', 'staff', 'member'],
+      default: 'admin',
     },
     isActive: {
       type: Boolean,
@@ -37,30 +42,29 @@ const superadminSchema = new mongoose.Schema(
     lastLogin: {
       type: Date,
     },
-    language: {
-      type: String,
-      enum: ['en', 'ta'],
-      default: 'en',
-    },
     deleted: {
       type: Boolean,
       default: false,
+    },
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Organization',
     },
   },
   { timestamps: true }
 );
 
 
-superadminSchema.pre('save', async function (next) {
-  if (this.isNew && !this.userId) {
+organizationuserSchema.pre('save', async function (next) {
+  if (this.isNew && !this.orguserId) {
     try {
       const counter = await Counter.findByIdAndUpdate(
-        { _id: 'superadminId' }, 
-        { $inc: { seq: 1 } },    
-        { new: true, upsert: true } 
+        { _id: 'organizationUserId' },
+        { $inc: { seq: 1 } },
+        { new: true, upsert: true }
       );
 
-      this.userId = `SA-${counter.seq.toString().padStart(4, '0')}`;
+      this.orguserId = `ORG-USER-${counter.seq.toString().padStart(4, '0')}`;
     } catch (err) {
       return next(err);
     }
@@ -70,13 +74,11 @@ superadminSchema.pre('save', async function (next) {
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
   }
-
   next();
 });
 
-
-superadminSchema.methods.matchPassword = async function (enteredPassword) {
+organizationuserSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-module.exports = mongoose.model('Superadmin', superadminSchema);
+module.exports = mongoose.model('Organizationuser', organizationuserSchema);

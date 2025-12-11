@@ -7,7 +7,7 @@ superadminauth.post('/register', register);
 superadminauth.post('/login', login);
 superadminauth.get('/loggeduser', protect, loggeduser);
 superadminauth.post('/loggeduseredit', protect, loggeduseredit);
-superadminauth.post('/logout', protect, logout);
+superadminauth.get('/logout', protect, logout);
 
 superadminauth.get('/token', (req, res) => {
   res.send('Token Test');

@@ -1,25 +1,5 @@
 import axios from 'axios';
 
-export const superadminlogin = async (payload) => {
-    try {
-        const response = await axios.post(`${process.env.REACT_APP_API_URL}/authenticate/superadminauthenticate/login`, payload, { withCredentials: true });
-        return response.data;
-    } catch (error) {
-        console.error('Error fetching data:', error);
-        throw error;
-    }
-};
-
-export const tenentlogin = async (payload) => {
-    try {
-        const response = await axios.post(`${process.env.REACT_APP_API_URL}/authenticate/tenentauthenticate/login`, payload, { withCredentials: true });
-        return response.data;
-    } catch (error) {
-        console.error('Error fetching data:', error);
-        throw error;
-    }
-};
-
 export const loggedSuperadminCheck = async () => {
     try {
         const response = await axios.get(`${process.env.REACT_APP_API_URL}/authenticate/superadminauthenticate/loggeduser`, { withCredentials: true });
